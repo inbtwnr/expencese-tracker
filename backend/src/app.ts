@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
-import indexRouter from './routes/index';
+import indexRouter from './routes';
 import usersRouter from './user/users';
 
 dotenv.config();
