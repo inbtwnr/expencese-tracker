@@ -8,6 +8,7 @@ import { ExpensesSearch } from "../components/Expenses/ExpensesSearch.tsx";
 export const ExpensesPage = () => {
   const { onSubmit, handleDelete, displayExpenses, onChangeExpenseList, form } =
     useExpenses();
+
   const { handleSubmit: handleSearch, register: registerSearch } =
     useExpensesSearch();
 
