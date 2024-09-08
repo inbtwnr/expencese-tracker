@@ -10,8 +10,7 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
-# Run Prisma migrations
-CMD ["npx", "prisma", "migrate", "deploy", "--preview-feature"]
+# Run Prisma migrations and start the application
+CMD ["sh", "-c", "npx prisma migrate deploy --preview-feature && npm start"]
 
 EXPOSE 5000
-CMD ["npm", "start"]

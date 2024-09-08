@@ -14,44 +14,56 @@ datasource db {
 }
 
 model User {
-  id          String @id @default(cuid())
-  email       String @unique
-  name        String?
-  role        Role   @default(USER)
-  banks       Bank[]
+  id            String @id @default(cuid())
+  email         String @unique
+  name          String?
+  role          Role   @default(USER)
+  banks         BankAccount[]
+  expenseLists  ExpenseList[]
 }
 
-model Bank {
-  id          String @id @default(cuid())
-  name        String
-  user        User @relation(fields: [userId], references: [id])
-  cards       Card[]
-  userId      String
+model BankAccount {
+  id            String @id @default(cuid())
+  name          String
+  user          User @relation(fields: [userId], references: [id])
+  cards         Card[]
+  userId        String
 }
 
 model Card {
-  id          String @id @default(cuid())
-  name        String
-  bank        Bank @relation(fields: [bankId], references: [id])
-  bankId      String
-  expenses    Expenses[]
+  id            String @id @default(cuid())
+  name          String
+  bank          BankAccount @relation(fields: [bankId], references: [id])
+  bankId        String
+  expenses      Expense[]
 }
 
-model Expenses {
-  id          String @id @default(cuid())
-  name        String
-  amount      Float
-  card        Card @relation(fields: [cardId], references: [id])
-  cardId      String
-  category    Category? @relation(fields: [categoryId], references: [id])
-  categoryId  String?
+model Expense {
+  id            String @id @default(cuid())
+  name          String
+  amount        Float
+  card          Card @relation(fields: [cardId], references: [id])
+  cardId        String
+  category      Category? @relation(fields: [categoryId], references: [id])
+  categoryId    String?
+  expenseList   ExpenseList @relation(fields: [expenseListId], references: [id])
+  expenseListId String
+}
+
+model ExpenseList {
+  id            String @id @default(cuid())
+  name          String
+  expenses      Expense[]
+  users          User[]
 }
 
 model Category {
   id          String @id @default(cuid())
   name        String
-  expenses    Expenses[]
+  expenses    Expense[]
 }
+
+
 
 enum Role {
   USER
