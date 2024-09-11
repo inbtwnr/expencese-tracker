@@ -20,6 +20,8 @@ model User {
   role          Role   @default(USER)
   banks         BankAccount[]
   expenseLists  ExpenseList[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model BankAccount {
@@ -28,6 +30,8 @@ model BankAccount {
   user          User @relation(fields: [userId], references: [id])
   cards         Card[]
   userId        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Card {
@@ -36,6 +40,8 @@ model Card {
   bank          BankAccount @relation(fields: [bankId], references: [id])
   bankId        String
   expenses      Expense[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Expense {
@@ -48,6 +54,8 @@ model Expense {
   categoryId    String?
   expenseList   ExpenseList @relation(fields: [expenseListId], references: [id])
   expenseListId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model ExpenseList {
@@ -55,15 +63,17 @@ model ExpenseList {
   name          String
   expenses      Expense[]
   users          User[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Category {
   id          String @id @default(cuid())
   name        String
   expenses    Expense[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
-
-
 
 enum Role {
   USER
